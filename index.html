@@ -3,36 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أغلى إنسانة</title>
+    <title>إلى مجرتي الوحيدة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        body { background: radial-gradient(circle, #2c0000 0%, #000000 100%); color: white; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
-        #lock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(10px); }
-        .heart-icon { color: #ff4d4d; font-size: 80px; margin-bottom: 20px; animation: pulse 1.5s infinite; text-shadow: 0 0 20px #ff4d4d; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        input { padding: 15px; border-radius: 30px; border: 2px solid #ff4d4d; background: transparent; color: white; text-align: center; font-size: 20px; outline: none; width: 250px; transition: 0.3s; }
-        input:focus { box-shadow: 0 0 15px #ff4d4d; }
-        button { padding: 12px 40px; background: #ff4d4d; color: white; border: none; border-radius: 30px; margin-top: 25px; cursor: pointer; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(255, 77, 77, 0.4); transition: 0.3s; }
-        #content { display: none; animation: fadeIn 3s ease-in-out; max-width: 90%; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        h1 { font-size: 2rem; margin-bottom: 20px; color: #ff4d4d; text-shadow: 2px 2px 10px rgba(255, 77, 77, 0.5); }
-        .love-letter { font-size: 1.3rem; line-height: 1.8; color: #fdfdfd; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; box-shadow: inset 0 0 20px rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.2); }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #050505;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Tajawal', sans-serif; /* خط واضح ومفهوم */
+            color: white;
+            overflow: hidden;
+        }
+
+        /* خلفية النجوم */
+        .stars {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -1;
+        }
+
+        /* شاشة القفل */
+        #lock-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: 1s ease-in-out;
+        }
+
+        .lock-box {
+            text-align: center;
+            padding: 40px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 77, 77, 0.3);
+            box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
+        }
+
+        input {
+            padding: 15px;
+            border-radius: 50px;
+            border: 2px solid #ff4d4d;
+            background: transparent;
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            width: 240px;
+            outline: none;
+            margin: 20px 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        button {
+            padding: 12px 45px;
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        button:hover { transform: scale(1.05); background: #ff1a1a; }
+
+        /* منطقة المحتوى */
+        #content {
+            display: none;
+            text-align: center;
+            width: 90%;
+            max-width: 550px;
+            z-index: 10;
+        }
+
+        /* تصميم المجرة (حرف Z والكواكب) */
+        .galaxy-header {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .initial-z {
+            font-size: 130px;
+            color: #ff4d4d;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ff4d4d, 0 0 50px #ff4d4d;
+            z-index: 5;
+            font-family: 'Arial', sans-serif;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.8; }
+            to { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* المدارات */
+        .orbit {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%;
+            animation: rotate 10s linear infinite;
+        }
+
+        .orbit-inner {
+            width: 70%; height: 70%;
+            top: 15%; left: 15%;
+            animation: rotate 15s linear infinite reverse;
+        }
+
+        .object { position: absolute; font-size: 28px; }
+
+        .obj1 { top: -10px; left: 50%; transform: translateX(-50%); }
+        .obj2 { bottom: -10px; left: 50%; transform: translateX(-50%); }
+        .obj3 { left: -10px; top: 50%; transform: translateY(-50%); }
+        .obj4 { right: -10px; top: 50%; transform: translateY(-50%); }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* صندوق الرسالة */
+        .message-card {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 77, 77, 0.2);
+            line-height: 2;
+            font-size: 1.4rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            animation: slideUp 2s ease-out;
+            font-family: 'Cairo', sans-serif; /* خط واضح جداً للقراءة */
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { font-size: 2.2rem; color: #ff4d4d; margin-bottom: 20px; font-weight: 700; }
+
     </style>
 </head>
 <body>
 
+    <div class="stars"></div>
+
     <div id="lock-screen">
-        <div class="heart-icon">❤</div>
-        <h2 style="margin-bottom: 20px;">أدخلي رمزنا السري</h2>
-        <input type="text" id="passInput" placeholder="السنة/الشهر/اليوم">
-        <button onclick="checkPass()">فتح الهدية</button>
+        <div class="lock-box">
+            <h2 style="font-size: 26px;">أدخلي رمز مجرتنا</h2>
+            <input type="text" id="passInput" placeholder="YYYY/M/D">
+            <br>
+            <button onclick="checkPass()">دخول إلى كوني</button>
+        </div>
     </div>
 
     <div id="content">
-        <div class="heart-icon" style="font-size: 60px;">❤</div>
-        <h1>أحبج موت يا زنوبتي ❤️</h1>
-        <div class="love-letter">
-            زنوبتي الغاليه انتِ حلم عمري وحياتي كل نبضه بگلبي تصيح بأسمج احبج حب ما يوصف الكواكب ومن كل هذا الفضاء حب ماله حدود يا كل كوني وسعادتي مستحيل اتخيل لحظه من دونج انتِ النور اللي يضوي ضلامي يا اجمل زنوبه بالدنيا اعشقج واموت عليج بكل دكة كلبي
+        <div class="galaxy-header">
+            <div class="initial-z">Z</div>
+            
+            <div class="orbit">
+                <span class="object obj1">🪐</span>
+                <span class="object obj2">❤️</span>
+            </div>
+            
+            <div class="orbit orbit-inner">
+                <span class="object obj3">🌍</span>
+                <span class="object obj4">💕</span>
+            </div>
         </div>
+
+        <h1>أحبج موت يا زنوبتي ❤️</h1>
+        
+        <div class="message-card">
+            زنوبتي الغاليه انتِ حلم عمري وحياتي كل نبضه بگلبي تصيح بأسمج احبج حب ما ينوصف اكثرر من كل الكواكب ومن كل هذا الفضاء حب ماله حدود يا كل كوني وسعادتي مستحيل اتخيل لحظه من دونج انتِ النور اللي يضوي ضلامي يا اجمل زنوبه بالدنيا اعشقج واموت عليج بكل نبضه ينبضها گلبي
+        </div>
+
         <audio id="myAudio" loop>
             <source src="music.m4a" type="audio/mp4">
         </audio>
@@ -41,15 +205,18 @@
     <script>
         function checkPass() {
             const input = document.getElementById('passInput').value;
-            const secret = "MjAwNi8xLzEw"; // الرمز 2006/1/10
+            const secret = "MjAwNi8xLzEw"; // رمز 2006/1/10
             
             if (btoa(input) === secret) {
-                document.getElementById('lock-screen').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-                const audio = document.getElementById('myAudio');
-                audio.play();
+                document.getElementById('lock-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('lock-screen').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                    const audio = document.getElementById('myAudio');
+                    audio.play().catch(e => console.log("تحتاج للموافقة على تشغيل الصوت"));
+                }, 1000);
             } else {
-                alert("الرمز خطأ.. حاولي مرة ثانية يا روحي");
+                alert("الرمز خطأ يا روحي.. ركزي زين ❤️");
             }
         }
     </script>
