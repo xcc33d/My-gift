@@ -3,28 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى مجرتي الوحيدة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
+    <title>إلى مجرتي الخاصة: زنوبتي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
     <style>
+        /* إعدادات الخلفية الفضائية - استخدام صورة المجرة التي جلبناها */
         body {
             margin: 0;
             padding: 0;
-            background: #050505;
+            background: #0a0a0a url('http://googleusercontent.com/image_collection/image_retrieval/8533913356549767387') no-repeat center center fixed;
+            background-size: cover;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Tajawal', sans-serif; /* خط واضح ومفهوم */
+            font-family: 'Cairo', sans-serif;
             color: white;
             overflow: hidden;
-        }
-
-        /* خلفية النجوم */
-        .stars {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
-            z-index: -1;
+            perspective: 1000px; /* للـ تأثير الـ 3D */
         }
 
         /* شاشة القفل */
@@ -32,19 +27,19 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: 1s ease-in-out;
+            transition: 1.5s ease-in-out;
         }
 
         .lock-box {
             text-align: center;
             padding: 40px;
-            border-radius: 25px;
+            border-radius: 30px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 77, 77, 0.3);
             box-shadow: 0 0 30px rgba(255, 77, 77, 0.2);
@@ -58,10 +53,9 @@
             color: white;
             text-align: center;
             font-size: 20px;
-            width: 240px;
+            width: 250px;
             outline: none;
             margin: 20px 0;
-            font-family: 'Cairo', sans-serif;
         }
 
         button {
@@ -74,102 +68,146 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
-            font-family: 'Tajawal', sans-serif;
         }
 
         button:hover { transform: scale(1.05); background: #ff1a1a; }
 
-        /* منطقة المحتوى */
+        /* منطقة المحتوى الرئيسية */
         #content {
             display: none;
             text-align: center;
             width: 90%;
-            max-width: 550px;
+            max-width: 600px;
             z-index: 10;
         }
 
-        /* تصميم المجرة (حرف Z والكواكب) */
+        /* تأثير المجرة الكامل الـ 3D لحرف Z */
         .galaxy-header {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 320px; /* أكبر شوي حتى ما ينگطع */
+            height: 320px;
             margin: 0 auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transform-style: preserve-3d;
         }
 
+        /* حرف Z فخم ومرتب */
         .initial-z {
-            font-size: 130px;
+            font-size: 150px;
             color: #ff4d4d;
-            font-weight: bold;
-            text-shadow: 0 0 20px #ff4d4d, 0 0 50px #ff4d4d;
-            z-index: 5;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
+            z-index: 10;
             font-family: 'Arial', sans-serif;
-            animation: pulse 2s infinite alternate;
+            position: relative;
+            transform: translateZ(20px);
         }
 
-        @keyframes pulse {
-            from { transform: scale(1); opacity: 0.8; }
-            to { transform: scale(1.1); opacity: 1; }
-        }
-
-        /* المدارات */
-        .orbit {
+        /* نظام المدارات المتعددة */
+        .orbit-system {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            transform-style: preserve-3d;
+        }
+
+        .orbit {
+            position: absolute;
             border-radius: 50%;
-            animation: rotate 10s linear infinite;
+            border: 1px border-style: dashed; border-color: rgba(255, 255, 255, 0.15);
+            animation: rotateOrbit 12s linear infinite;
         }
 
-        .orbit-inner {
-            width: 70%; height: 70%;
-            top: 15%; left: 15%;
-            animation: rotate 15s linear infinite reverse;
+        /* المدارات الـ 3D بحركات مختلفة */
+        .orbit-1 { width: 100%; height: 100%; animation-duration: 15s; }
+        .orbit-2 { width: 75%; height: 75%; animation-duration: 20s; animation-direction: reverse; transform: rotateX(70deg) rotateY(10deg); }
+        .orbit-3 { width: 55%; height: 55%; animation-duration: 25s; transform: rotateX(-70deg) rotateY(-10deg); }
+
+        .object {
+            position: absolute;
+            transform-style: preserve-3d;
+            animation: selfRotate 3s linear infinite;
         }
 
-        .object { position: absolute; font-size: 28px; }
+        /* توزيع الأجسام (كواكب، قلوب، نجوم) */
+        /* مدار 1 (كواكب) */
+        .obj1 { top: -15px; left: 50%; transform: translateX(-50%); font-size: 32px; } /*🪐*/
+        .obj2 { bottom: -15px; left: 50%; transform: translateX(-50%); font-size: 28px; } /*🌍*/
+        
+        /* مدار 2 (قلوب صغار) */
+        .obj3 { left: -12px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #ff1a1a; } /*💕*/
+        .obj4 { right: -12px; top: 50%; transform: translateY(-50%); font-size: 20px; color: #ff4d4d; } /*💖*/
+        
+        /* مدار 3 (نجوم) */
+        .obj5 { top: 10%; left: 10%; font-size: 20px; color: #fff; } /*✨*/
+        .obj6 { bottom: 10%; right: 10%; font-size: 16px; color: #ffeb3b; } /*🌟*/
 
-        .obj1 { top: -10px; left: 50%; transform: translateX(-50%); }
-        .obj2 { bottom: -10px; left: 50%; transform: translateX(-50%); }
-        .obj3 { left: -10px; top: 50%; transform: translateY(-50%); }
-        .obj4 { right: -10px; top: 50%; transform: translateY(-50%); }
-
-        @keyframes rotate {
+        /* حركات الدوران */
+        @keyframes rotateOrbit {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        /* صندوق الرسالة */
+        @keyframes selfRotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        /* تأثير النص المتلون (Chameleon Text) */
         .message-card {
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
             padding: 30px;
-            border-radius: 20px;
+            border-radius: 25px;
             border: 1px solid rgba(255, 77, 77, 0.2);
             line-height: 2;
-            font-size: 1.4rem;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            font-size: 1.45rem;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.7);
             animation: slideUp 2s ease-out;
-            font-family: 'Cairo', sans-serif; /* خط واضح جداً للقراءة */
+            max-height: 70vh; /* حتى نضمن الرسالة تطلع كاملة */
+            overflow-y: auto; /* إذا الرسالة أطول، تطلّع سكرول */
+            scrollbar-width: thin;
+            scrollbar-color: #ff4d4d rgba(0,0,0,0.2);
+        }
+
+        /* كود تلوين النص تدريجياً */
+        .message-content {
+            background-image: linear-gradient(
+                to right,
+                #ff4d4d, #ffeb3b, #4caf50, #2196f3, #9c27b0, #ff4d4d
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 500% auto;
+            animation: chameleon 20s linear infinite;
+        }
+
+        @keyframes chameleon {
+            to { background-position: -500% center; }
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
+            from { opacity: 0; transform: translateY(60px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h1 { font-size: 2.2rem; color: #ff4d4d; margin-bottom: 20px; font-weight: 700; }
-
+        h1 {
+            font-size: 2.3rem;
+            margin-bottom: 20px;
+            color: #ff4d4d;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px rgba(255, 77, 77, 0.5);
+        }
     </style>
 </head>
 <body>
 
-    <div class="stars"></div>
-
     <div id="lock-screen">
         <div class="lock-box">
-            <h2 style="font-size: 26px;">أدخلي رمز مجرتنا</h2>
+            <h2 style="font-size: 28px;">أدخلي رمز مجرتنا</h2>
             <input type="text" id="passInput" placeholder="YYYY/M/D">
             <br>
             <button onclick="checkPass()">دخول إلى كوني</button>
@@ -180,21 +218,31 @@
         <div class="galaxy-header">
             <div class="initial-z">Z</div>
             
-            <div class="orbit">
-                <span class="object obj1">🪐</span>
-                <span class="object obj2">❤️</span>
-            </div>
-            
-            <div class="orbit orbit-inner">
-                <span class="object obj3">🌍</span>
-                <span class="object obj4">💕</span>
+            <div class="orbit-system">
+                <div class="orbit orbit-1">
+                    <span class="object obj1">🪐</span>
+                    <span class="object obj2">🌍</span>
+                </div>
+                
+                <div class="orbit orbit-2">
+                    <span class="object obj3">💕</span>
+                    <span class="object obj4">💖</span>
+                    <span class="object" style="top:25%; left:25%">✨</span>
+                </div>
+                
+                <div class="orbit orbit-3">
+                    <span class="object obj5">✨</span>
+                    <span class="object obj6">🌟</span>
+                </div>
             </div>
         </div>
 
         <h1>أحبج موت يا زنوبتي ❤️</h1>
         
         <div class="message-card">
-            زنوبتي الغاليه انتِ حلم عمري وحياتي كل نبضه بگلبي تصيح بأسمج احبج حب ما ينوصف اكثرر من كل الكواكب ومن كل هذا الفضاء حب ماله حدود يا كل كوني وسعادتي مستحيل اتخيل لحظه من دونج انتِ النور اللي يضوي ضلامي يا اجمل زنوبه بالدنيا اعشقج واموت عليج بكل نبضه ينبضها گلبي
+            <div class="message-content">
+                زنوبتي الغاليه انتِ حلم عمري وحياتي كل نبضه بگلبي تصيح بأسمج احبج حب ما ينوصف اكثرر من كل الكواكب ومن كل هذا الفضاء حب ماله حدود يا كل كوني وسعادتي مستحيل اتخيل لحظه من دونج انتِ النور اللي يضوي ضلامي يا اجمل زنوبه بالدنيا اعشقج واموت عليج بكل نبضه ينبضها گلبي
+            </div>
         </div>
 
         <audio id="myAudio" loop>
@@ -205,7 +253,8 @@
     <script>
         function checkPass() {
             const input = document.getElementById('passInput').value;
-            const secret = "MjAwNi8xLzEw"; // رمز 2006/1/10
+            // رمز (2006/1/10) مشفر
+            const secret = "MjAwNi8xLzEw"; 
             
             if (btoa(input) === secret) {
                 document.getElementById('lock-screen').style.opacity = '0';
@@ -213,10 +262,10 @@
                     document.getElementById('lock-screen').style.display = 'none';
                     document.getElementById('content').style.display = 'block';
                     const audio = document.getElementById('myAudio');
-                    audio.play().catch(e => console.log("تحتاج للموافقة على تشغيل الصوت"));
+                    audio.play().catch(e => console.log("Audio deferred"));
                 }, 1000);
             } else {
-                alert("الرمز خطأ يا روحي.. ركزي زين ❤️");
+                alert("الرمز خطأ يا روحي.. حاولي مرة ثانية ❤️");
             }
         }
     </script>
