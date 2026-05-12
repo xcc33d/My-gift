@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مفاجأة لزنوبتي</title>
+    <style>
+        body { background-color: #1a1a1a; color: white; text-align: center; font-family: Arial, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+        #lock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
+        input { padding: 10px; border-radius: 5px; border: none; margin-top: 10px; text-align: center; font-size: 18px; }
+        button { padding: 10px 20px; background: #ff4d4d; color: white; border: none; border-radius: 5px; margin-top: 15px; cursor: pointer; }
+        #content { display: none; }
+        .heart { color: #ff4d4d; font-size: 50px; animation: beat 1s infinite; }
+        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    </style>
+</head>
+<body>
+
+    <div id="lock-screen">
+        <div class="heart">❤</div>
+        <h2>أدخلي رمزنا السري</h2>
+        <input type="text" id="passInput" placeholder="YYYY/M/D">
+        <button onclick="checkPass()">فتح المفاجأة</button>
+    </div>
+
+    <div id="content">
+        <h1 id="msg">أحبك موت يا زنوبتي ❤️</h1>
+        <p>كل عام وإحنا سوة، يا أحلى شي بحياتي</p>
+        <div class="heart">❤</div>
+        <audio id="myAudio" loop>
+            <source src="music.m4a" type="audio/mp4">
+        </audio>
+    </div>
+
+    <script>
+        function checkPass() {
+            const input = document.getElementById('passInput').value;
+            // الرمز مشفر هنا (Base64) لكي لا يظهر بوضوح
+            const secret = "MjAwNi8xLzEw"; 
+            
+            if (btoa(input) === secret) {
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                const audio = document.getElementById('myAudio');
+                audio.play().catch(e => console.log("اتركيها تضغط مرة أخرى لتشغيل الصوت"));
+            } else {
+                alert("الرمز خطأ.. حاولي مرة ثانية يا روحي");
+            }
+        }
+    </script>
+</body>
+</html>
